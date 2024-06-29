@@ -2,6 +2,7 @@
 
 from flask import Flask
 from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
 
 cors = CORS()
 
@@ -13,8 +14,10 @@ def create_app(config_class="src.config.DevelopmentConfig") -> Flask:
     """
     app = Flask(__name__)
     app.url_map.strict_slashes = False
-
     app.config.from_object(config_class)
+
+    from src.models import db
+    db.init_app(app)
 
     register_extensions(app)
     register_routes(app)
