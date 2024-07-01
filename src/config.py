@@ -9,7 +9,7 @@ This module exports configuration classes for the Flask application.
 
 from abc import ABC
 import os
-
+from dotenv import load_dotenv
 
 class Config(ABC):
     """
@@ -38,9 +38,8 @@ class DevelopmentConfig(Config):
         # Do something
     ```
     """
-
-    SQLALCHEMY_DATABASE_URI = os.getenv(
-        "DATABASE_URL", "sqlite:///hbnb_dev.db")
+    load_dotenv()
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
     DEBUG = True
 
 
@@ -80,3 +79,4 @@ class ProductionConfig(Config):
         "DATABASE_URL",
         "mysql://user:password@localhost/hbnb_prod"
     )
+

@@ -2,16 +2,16 @@
 
 from flask import Flask
 from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
 
 cors = CORS()
 
 
-def create_app(config_class="src.config.DevelopmentConfig") -> Flask:
+def create_app(config_class) -> Flask:
     """
     Create a Flask app with the given configuration class.
     The default configuration class is DevelopmentConfig.
     """
+
     app = Flask(__name__)
     app.url_map.strict_slashes = False
     app.config.from_object(config_class)
@@ -22,6 +22,8 @@ def create_app(config_class="src.config.DevelopmentConfig") -> Flask:
     register_extensions(app)
     register_routes(app)
     register_handlers(app)
+
+    print(f"Using {config_class} as config")
 
     return app
 
