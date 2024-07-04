@@ -8,7 +8,7 @@ from src.controllers.users import (
     delete_user,
     get_user_by_id,
     get_users,
-    update_user,
+    update_user
 )
 
 users_bp = Blueprint("users", __name__, url_prefix="/users")

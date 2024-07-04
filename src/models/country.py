@@ -2,6 +2,8 @@
 Country related functionality
 """
 from . import db
+import os
+from utils.constants import REPOSITORY_ENV_VAR
 
 class Country(db.Model):
     """
@@ -14,8 +16,8 @@ class Country(db.Model):
 
     __tablename__ = 'countries'
 
-    name = db.Column(db.String(128), nullable=False)
-    code = db.Column(db.String(2), primary_key=True, nullable=False)
+    name = db.Column(db.String(128), unique=True)
+    code = db.Column(db.String(2), primary_key=True, unique=True)
     cities = db.relationship("City", back_populates='country')
 
 
@@ -41,7 +43,10 @@ class Country(db.Model):
         """Get all countries"""
         from src.persistence import repo
 
-        countries: list["Country"] = repo.get_all("country")
+        if os.getenv(REPOSITORY_ENV_VAR) == "db":
+            countries: list["Country"] = repo.get_all(Country)
+        else:
+            countries: list["Country"] = repo.get_all("country")
 
         return countries
 

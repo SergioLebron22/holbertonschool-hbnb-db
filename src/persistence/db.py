@@ -39,18 +39,16 @@ class DBRepository(Repository):
             return None
 
     def reload(self) -> None:
-        db.create_all()
+        from utils.populate import populate_db
         self.__session = db.session
+        populate_db(self)
+        db.create_all()
         
-
     def save(self, obj: Base) -> None:
         try:
-            
             self.__session.add(obj)
             self.__session.commit()
-            print("user added")
         except SQLAlchemyError:
-            print("ERROR")
             self.__session.rollback()
 
     def update(self, obj: Base) -> None:
@@ -67,3 +65,6 @@ class DBRepository(Repository):
         except SQLAlchemyError:
             self.__session.rollback()
             return False
+
+    def get_by_code(self, country, code):
+        return self.__session.query(country).filter_by(code=code).first()

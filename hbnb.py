@@ -3,7 +3,7 @@
 from src import create_app
 import os
 
-app = create_app('src.config.ProductionConfig' if os.environ.get('ENV') == 'production' else 'src.config.DevelopmentConfig' )
+app = create_app('src.config.ProductionConfig' if os.environ.get('ENV') == 'production' else 'src.config.DevelopmentConfig')
 
 if __name__ == "__main__":
     app.run()

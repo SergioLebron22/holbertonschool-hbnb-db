@@ -2,8 +2,18 @@
 
 from flask import Flask
 from flask_cors import CORS
+from flask_jwt_extended import JWTManager
+from flask_bcrypt import Bcrypt
+import os
+from dotenv import load_dotenv
 
 cors = CORS()
+
+load_dotenv()
+
+
+jwt = JWTManager()   
+bcrypt = Bcrypt()
 
 
 def create_app(config_class) -> Flask:
@@ -16,15 +26,21 @@ def create_app(config_class) -> Flask:
     app.url_map.strict_slashes = False
     app.config.from_object(config_class)
 
+
+    app.config['JWT_SECRETE_KEY'] = os.environ.get('JWT_SECRETE_KEY')
+
     from src.models import db
     db.init_app(app)
+    jwt.init_app(app)
+    bcrypt.init_app(app)
+    
 
     register_extensions(app)
     register_routes(app)
     register_handlers(app)
 
     print(f"Using {config_class} as config")
-
+    
     return app
 
 
