@@ -30,7 +30,7 @@ def create_amenity():
 
         return amenity.to_dict(), 201
     else:
-        return jsonify({'msg': 'Not allowed'})
+        return jsonify({'msg': 'Not allowed'}), 403
 
 def get_amenity_by_id(amenity_id: str):
     """Returns a amenity by ID"""
@@ -62,5 +62,5 @@ def delete_amenity(amenity_id: str):
 
         return "", 204
     else:
-        return jsonify({'msg': 'Not allowed'})
+        return jsonify({'msg': 'Not allowed'}), 403
 

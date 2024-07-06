@@ -28,7 +28,7 @@ def create_city():
 
         return city.to_dict(), 201
     else:
-        return jsonify({'msg': 'Not allowed'})
+        return jsonify({'msg': 'Not allowed'}), 403
 
 
 
@@ -65,5 +65,5 @@ def delete_city(city_id: str):
 
         return "", 204
     else:
-        return jsonify({'msg': 'Not allowed'})
+        return jsonify({'msg': 'Not allowed'}), 403
 

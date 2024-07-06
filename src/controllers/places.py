@@ -29,7 +29,7 @@ def create_place():
 
         return place.to_dict(), 201
     else:
-        return jsonify({'msg': 'Not allowed'})
+        return jsonify({'msg': 'Not allowed'}), 403
 
 
 def get_place_by_id(place_id: str):
@@ -57,7 +57,7 @@ def update_place(place_id: str):
 
         return place.to_dict(), 200
     else:
-        return jsonify({'msg': 'Not allowed'})
+        return jsonify({'msg': 'Not allowed'}), 403
 
 
 @jwt_required()
@@ -69,5 +69,5 @@ def delete_place(place_id: str):
 
         return "", 204
     else:
-        return jsonify({'msg': 'Not allowed'})
+        return jsonify({'msg': 'Not allowed'}), 403
 

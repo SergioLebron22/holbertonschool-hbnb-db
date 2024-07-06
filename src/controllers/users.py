@@ -32,7 +32,7 @@ def create_user():
 
         return user.to_dict(), 201
     else:
-        return jsonify({'msg': 'Not allowed'})
+        return jsonify({'msg': 'Not allowed'}), 403
 
 
 def get_user_by_id(user_id: str):
@@ -60,7 +60,7 @@ def update_user(user_id: str):
 
         return user.to_dict(), 200
     else:
-        return jsonify({'msg': 'Not allowed'})
+        return jsonify({'msg': 'Not allowed'}), 403
 
 
 
@@ -73,4 +73,4 @@ def delete_user(user_id: str):
 
         return "", 204
     else:
-        return jsonify({'msg': 'Not allowed'})
+        return jsonify({'msg': 'Not allowed'}), 403
