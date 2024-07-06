@@ -20,6 +20,12 @@ def protected():
     return jsonify(logged_in_as=current_user), 200
 
 @jwt_required()
+def admin_data():
+    claims = get_jwt()
+    if not claims.get('is_admin'):
+        return jsonify({"msg": "Administration rights required"}), 403
+    
+
 def check_admin():
     claims = get_jwt()
     if claims.get('is_admin'):
