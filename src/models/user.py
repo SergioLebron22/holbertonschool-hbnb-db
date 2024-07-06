@@ -20,11 +20,11 @@ class User(db.Model):
     reviews = db.relationship("Review", back_populates='user')
 
 
-    def __init__(self, email: str, password: str, is_admin: bool, first_name: str, last_name: str, **kw):
+    def __init__(self, email: str, password: str, first_name: str, last_name: str, is_admin=False, **kw):
         """Dummy init"""
         super().__init__(**kw)
         self.email = email
-        self.set_password(password)
+        self.set_password(self, password=password)
         self.is_admin = is_admin
         self.first_name = first_name
         self.last_name = last_name
@@ -88,6 +88,7 @@ class User(db.Model):
 
         return user
 
+    @staticmethod
     def set_password(self, password):
         self.password_hash = bcrypt.generate_password_hash(password).decode("utf-8")
 
