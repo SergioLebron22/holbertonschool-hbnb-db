@@ -8,10 +8,10 @@ from utils.constants import REPOSITORY_ENV_VAR
 
 repo: Repository
 
-if os.getenv(key=REPOSITORY_ENV_VAR) == "db":
-    from src.persistence.db import DBRepository
+if os.getenv(key=REPOSITORY_ENV_VAR) == "memory":
+    from src.persistence.memory import MemoryRepository
     
-    repo = DBRepository()
+    repo = MemoryRepository()
     
 
 elif os.getenv(REPOSITORY_ENV_VAR) == "file":
@@ -25,8 +25,8 @@ elif os.getenv(REPOSITORY_ENV_VAR) == "pickle":
     repo = PickleRepository()
 
 else:
-    from src.persistence.memory import MemoryRepository
+    from src.persistence.db import DBRepository
 
-    repo = MemoryRepository()
+    repo = DBRepository()
 
 print(f"Using {repo.__class__.__name__} as repository")
